@@ -66,4 +66,12 @@ public class MailServer
     {
         items.add(item);
     }
+    
+    public int getNumberOfMessageInServer(){
+        int count = 0;
+        for(MailItem item : items) {
+            count++;
+        }
+        return count;
+    }
 }
