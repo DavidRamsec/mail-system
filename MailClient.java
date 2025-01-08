@@ -11,6 +11,8 @@ public class MailClient
     private MailServer server;
     // The user running this client.
     private String user;
+    
+    private MailItem lastPrinted;
 
     /**
      * Create a mail client run by user and attached to the given server.
@@ -19,6 +21,7 @@ public class MailClient
     {
         this.server = server;
         this.user = user;
+        lastPrinted = null;
     }
 
     /**
@@ -26,7 +29,11 @@ public class MailClient
      */
     public MailItem getNextMailItem()
     {
-        return server.getNextMailItem(user);
+        MailItem item = server.getNextMailItem(user);
+        if(item != null){
+            lastPrinted = item;
+        }
+        return item;
     }
 
     /**
@@ -62,7 +69,7 @@ public class MailClient
     }
     
     public MailItem getLastReceivedMail(){
-        return server.getNextMailItem(user);
+        return lastPrinted;
     }
     
     public int getNumberOfMessageInServer(){
